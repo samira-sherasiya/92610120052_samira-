@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Table Reservation</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@400;600;700&display=swap"
+    rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Pacifico&display=swap"
+    rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* --- Booking Section --- */
+    .booking-section {
+      display: flex;
+      height: 100vh;
+      animation: fadeIn 1.5s ease forwards;
+    }
+
+    /* Left side (Image) */
+    .left-side {
+      flex: 1;
+      background: url('../Images/d1.jpg') no-repeat center center;
+      background-size: cover;
+      opacity: 0;
+      animation: slideInLeft 1.2s ease forwards;
+    }
+
+    /* Right side (Form box) */
+    .right-side {
+      flex: 1;
+      background: #0d1b2a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+      color: #fff;
+      opacity: 0;
+      animation: slideInRight 1.2s ease forwards;
+      animation-delay: 0.3s;
+    }
+
+    /* Booking Box */
+    .booking-box {
+      width: 100%;
+      max-width: 420px;
+      text-align: center;
+      transform: translateY(30px);
+      opacity: 0;
+      animation: fadeUp 1.2s ease forwards;
+      animation-delay: 0.6s;
+    }
+
+    /* Headings */
+    .booking-box h2 {
+      font-weight: 700;
+      margin-bottom: 20px;
+      font-size: 28px;
+      letter-spacing: 0.5px;
+      transition: color 0.3s ease;
+    }
+
+    .booking-box h2:hover {
+      color: #ff7f2a;
+    }
+
+    /* Inputs */
+    .form-control,
+    .form-select {
+      margin-bottom: 15px;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+    }
+
+    .form-control:focus,
+    .form-select:focus {
+      transform: scale(1.02);
+      box-shadow: 0 0 10px rgba(255, 127, 42, 0.4);
+    }
+
+    /* Button */
+    .btn-custom {
+      background: #ff7f2a;
+      border: none;
+      width: 100%;
+      padding: 12px;
+      font-weight: 600;
+      color: #fff;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn-custom:hover {
+      background: #e69500;
+      transform: translateY(-3px);
+      box-shadow: 0 4px 10px rgba(255, 127, 42, 0.3);
+    }
+
+    /* Subtitle */
+    .subtitle {
+      font-family: 'Great Vibes', cursive;
+      font-size: 2rem;
+      color: #ff7f2a;
+      margin-bottom: .5rem;
+      display: inline-block;
+      position: relative;
+      text-align: center;
+      opacity: 0;
+      animation: fadeIn 1.2s ease forwards;
+      animation-delay: 0.5s;
+    }
+
+    .subtitle::before,
+    .subtitle::after {
+      content: "";
+      display: inline-block;
+      width: 50px;
+      height: 2px;
+      background: #ff7f2a;
+      vertical-align: middle;
+      margin: 0 12px;
+      transition: width 0.4s ease;
+    }
+
+    .subtitle:hover::before,
+    .subtitle:hover::after {
+      width: 70px;
+    }
+
+    /* --- Animations --- */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-60px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes slideInRight {
+      from {
+        opacity: 0;
+        transform: translateX(60px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+
+
+    /*Footer*/
+    :root {
+      --footer-bg: #0b1420;
+      --footer-accent: #ff7f2a;
+      ;
+      --muted: #aab3bd;
+      --light: #ffffff;
+      --input-bg: #f5f2ea;
+      --accent-border: #caa25a;
+    }
+
+    .site-footer {
+      background: linear-gradient(180deg, var(--footer-bg)0%, #061017 100%);
+      color: var(--muted);
+      padding: 48px 24px 18px;
+      font-family: 'Open Sans', sans-serif;
+      box-sizing: border-box;
+    }
+
+    .footer-inner {
+      max-width: 1150px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 28px;
+      align-items: start;
+    }
+
+    .footer-title {
+      font-family: 'Pacifico', cursive;
+      color: var(--footer-accent);
+      font-size: 22px;
+      margin: 0 0 14px;
+      display: inline-block;
+      position: relative;
+    }
+
+    .footer-title::after {
+      content: "";
+      display: inline-block;
+      width: 58px;
+      height: 2px;
+      background: rgba(255, 255, 255, 0.08);
+      margin-left: 14px;
+      vertical-align: middle;
+    }
+
+    .footer-links,
+    .contact-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .footer-links li {
+      margin: 8px 0;
+    }
+
+    .footer-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .footer-links a:hover {
+      color: var(--light);
+    }
+
+    .contact-list li {
+      margin: 6px 0;
+      font-size: 14px;
+    }
+
+    /* Social icons white */
+    .social-btn {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      margin-right: 8px;
+      color: #fff;
+      /* white icons */
+      font-size: 14px;
+      transition: .3s;
+    }
+
+    .social-btn:hover {
+      background: var(--footer-accent);
+      border-color: var(--footer-accent);
+      color: #fff;
+    }
+
+    .opening .day {
+      font-weight: 600;
+      color: var(--light);
+      margin-top: 6px;
+    }
+
+    .opening .hours {
+      font-size: 13px;
+      margin-bottom: 8px;
+      color: var(--muted);
+    }
+
+    /* Newsletter */
+    .newsletter-col .newsletter-text {
+      font-size: 13px;
+      margin-bottom: 12px;
+      color: var(--muted);
+    }
+
+    .newsletter-form {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .newsletter-input {
+      flex: 1;
+      padding: 12px 14px;
+      border: 4px solid var(--accent-border);
+      border-right: none;
+      border-radius: 3px 0 0 3px;
+      background: var(--input-bg);
+      font-size: 14px;
+    }
+
+    .newsletter-input::placeholder {
+      color: #8a7f70;
+      font-weight: 500;
+    }
+
+    .newsletter-btn {
+      padding: 12px 18px;
+      border-radius: 0 3px 3px 0;
+      border: 4px solid var(--accent-border);
+      background: linear-gradient(180deg, var(--footer-accent), #c6721f);
+      color: #fff;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 2px 0 rgba(0, 0, 0, 0.25);
+    }
+
+    .newsletter-btn:hover {
+      transform: translateY(-2px);
+    }
+
+    /* Bottom */
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.03);
+      margin-top: 22px;
+      padding-top: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1150px;
+      margin-left: auto;
+      margin-right: auto;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .footer-bottom .copyright {
+      color: rgba(255, 255, 255, 0.55);
+      font-size: 13px;
+    }
+
+    .bottom-links a {
+      color: var(--muted);
+      text-decoration: none;
+      margin-left: 14px;
+      font-size: 13px;
+    }
+
+    .bottom-links a:hover {
+      color: var(--light);
+    }
+
+    /* Responsive */
+    @media (max-width:900px) {
+      .footer-inner {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .newsletter-form {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .newsletter-input {
+        width: 100%;
+        border-right: 4px solid var(--accent-border);
+        border-radius: 3px;
+      }
+
+      .newsletter-btn {
+        width: 100%;
+        border-radius: 3px;
+      }
+    }
+
+    @media (max-width:520px) {
+      .footer-inner {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-title::after {
+        display: none;
+      }
+    }
+
+    /*Navbar*/
+    .main-nav {
+      background: var(--footer-bg);
+      padding: 24px 24px;
+      font-family: 'Open Sans', sans-serif;
+    }
+
+    .nav-container {
+      max-width: 1150px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    /* logo */
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nav-logo img {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+    }
+
+    .logo-text {
+      font-weight: 700;
+      color: var(--light);
+      font-size: 18px;
+      color: #ff7f2a;
+      ;
+    }
+
+    /* nav links */
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 28px;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-links li {
+      position: relative;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--light);
+      font-size: 15px;
+      padding: 6px 0;
+      position: relative;
+      transition: color .3s ease;
+    }
+
+    /* animated underline */
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -3px;
+      width: 0%;
+      height: 2px;
+      background: var(--footer-accent);
+      transition: width .3s ease;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    /* active state */
+    .nav-links a.active {
+      color: var(--footer-accent);
+    }
+
+    .nav-links a.active::after {
+      width: 100%;
+    }
+
+    /* dropdown */
+    .dropdown-menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: var(--footer-bg);
+      list-style: none;
+      padding: 8px 0;
+      display: none;
+      min-width: 140px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      animation: fadeSlide .3s ease;
+      /* fade animation */
+    }
+
+    .dropdown-menu li a {
+      display: block;
+      padding: 8px 14px;
+      color: var(--light);
+      text-decoration: none;
+      font-size: 14px;
+      transition: background .3s;
+    }
+
+    .dropdown-menu li a:hover {
+      background: var(--footer-accent);
+      color: #fff;
+    }
+
+    .dropdown:hover .dropdown-menu {
+      display: block;
+    }
+
+    /* login button */
+    .login-btn {
+      padding: 8px 18px;
+      background: var(--footer-accent);
+      color: #fff;
+      font-weight: 600;
+      text-decoration: none;
+      border-radius: 3px;
+      transition: all .3s ease;
+    }
+
+    .login-btn:hover {
+      background: #ff7f2a;
+      ;
+      transform: translateY(-2px);
+    }
+
+    /* fade/slide for dropdown */
+    @keyframes fadeSlide {
+      0% {
+        opacity: 0;
+        transform: translateY(-5px);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* responsive */
+    @media (max-width:768px) {
+      .nav-container {
+        flex-wrap: wrap;
+      }
+
+      .nav-links {
+        width: 100%;
+        justify-content: center;
+        margin-top: 10px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- NAVBAR -->
+  <nav class="main-nav">
+    <div class="nav-container">
+      <!-- logo + name -->
+      <div class="nav-logo">
+        <img src="../Images/logo.jpg" alt="RestoPro Logo">
+        <span class="logo-text">RESTO PRO</span>
+      </div>
+
+      <!-- links -->
+      <!-- links -->
+      <ul class="nav-links">
+        <li><a href="index.html" class="active">Home</a></li>
+
+        <li class="dropdown">
+          <a href="#">Menu ▾</a>
+          <ul class="dropdown-menu">
+            <li><a href="menu.html">Breakfast</a></li>
+            <li><a href="menu.html">Lunch</a></li>
+            <li><a href="menu.html">Dinner</a></li>
+          </ul>
+        </li>
+
+        <li><a href="booking.html">Book</a></li>
+        <li><a href="About us.html">About</a></li>
+        <li><a href="contactus.html">Contact Us</a></li>
+      </ul>
+
+      <!-- login button -->
+      <a href="login.html" class="login-btn">Login</a>
+    </div>
+  </nav>
+
+  <div class="booking-section">
+    <!-- Left Side (Image) -->
+    <div class="left-side"></div>
+
+    <!-- Right Side (Form) -->
+    <div class="right-side">
+      <div class="booking-box">
+        <p class="subtitle">Reservation</p>
+        <h2>Book A Table Online</h2>
+        <form>
+          <div class="row">
+            <div class="col-md-6">
+              <input type="text" class="form-control" placeholder="Your Name" required>
+            </div>
+            <div class="col-md-6">
+              <input type="email" class="form-control" placeholder="Your Email" required>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <input type="datetime-local" class="form-control" required>
+            </div>
+            <div class="col-md-6">
+              <select class="form-select" required>
+                <option selected>No Of People</option>
+                <option value="1">People 1</option>
+                <option value="2">People 2</option>
+                <option value="3">People 3</option>
+                <option value="4">People 4</option>
+                <option value="5">People 5</option>
+              </select>
+            </div>
+          </div>
+          <textarea class="form-control" rows="3" placeholder="Special Request"></textarea>
+          <button type="submit" class="btn btn-custom mt-3">BOOK NOW</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!--Footer-->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-col">
+        <h3 class="footer-title">Company</h3>
+        <ul class="footer-links">
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Contact Us</a></li>
+          <li><a href="#">Reservation</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms &amp; Condition</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h3 class="footer-title">Contact</h3>
+        <ul class="contact-list">
+          <li>📍 123 Street, New York, USA</li>
+          <li>📞 +012 345 67890</li>
+          <li>✉️ info@example.com</li>
+        </ul>
+        <div class="social">
+          <a class="social-btn" href="#"><i class="fab fa-twitter"></i></a>
+          <a class="social-btn" href="#"><i class="fab fa-facebook-f"></i></a>
+          <a class="social-btn" href="#"><i class="fab fa-youtube"></i></a>
+          <a class="social-btn" href="#"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h3 class="footer-title">Opening</h3>
+        <div class="opening">
+          <div class="day">Monday - Saturday</div>
+          <div class="hours">09AM - 09PM</div>
+          <div class="day">Sunday</div>
+          <div class="hours">10AM - 08PM</div>
+        </div>
+      </div>
+
+      <div class="footer-col newsletter-col">
+        <h3 class="footer-title">Newsletter</h3>
+        <p class="newsletter-text">Dolor amet sit justo amet elitr clita ipsum elitr est.</p>
+        <form class="newsletter-form">
+          <input class="newsletter-input" type="email" placeholder="Your email">
+          <button class="newsletter-btn">SIGNUP</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="copyright">© Your Site Name. All Right Reserved. Designed By Dimpul Dasari</div>
+      <div class="bottom-links">
+        <a href="#">Home</a>
+        <a href="#">Cookies</a>
+        <a href="#">Help</a>
+        <a href="#">FAQs</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
